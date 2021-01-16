@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>JS- Chess</title>
+</head>
+
+<body>
+    <div class="welcome-note" id="welcome-note">
+        <div class="welcome-title">Welcome to the AH-CHESS, You can enter alias (optional) or start the game simply
+        </div>
+        <div class="alias-container">
+            <div class="alias alias-1">
+                <div class="alias-title">Enter alias for White</div>
+                <input type="text" id="white-alias" placeholder="Enter alias (optional)" class="alias-input">
+            </div>
+            <div class="alias alias-2">
+                <div class="alias-title">Enter alias for Black</div>
+                <input type="text" id="black-alias" placeholder="Enter alias (optional)" class="alias-input">
+            </div>
+        </div>
+
+        <button class="btn-play" onclick="play_game()">
+            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px" y="0px" viewBox="0 0 163.861 163.861" xml:space="preserve">
+                <g>
+                    <path d="M34.857,3.613C20.084-4.861,8.107,2.081,8.107,19.106v125.637c0,17.042,11.977,23.975,26.75,15.509L144.67,97.275
+                    c14.778-8.477,14.778-22.211,0-30.686L34.857,3.613z" />
+                </g>
+            </svg>
+            <span class="play">Play</span>
+        </button>
+    </div>
+
+    <div class="header">
+        <div class="turn-intimation" id="turn">White's move</div>
+
+        <div class="buttons-container">
+            <div class="reset-button">
+                <button class="btn-reset" id="btn-reset">
+                    <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                        x="0px" y="0px" viewBox="0 0 14.155 14.155" xml:space="preserve">
+                        <g>
+                            <path
+                                d="M12.083,1.887c-0.795-0.794-1.73-1.359-2.727-1.697v2.135c0.48,0.239,0.935,0.55,1.334,0.95
+                            c1.993,1.994,1.993,5.236,0,7.229c-1.993,1.99-5.233,1.99-7.229,0c-1.991-1.995-1.991-5.235,0-7.229
+                            C3.466,3.269,3.482,3.259,3.489,3.25h0.002l1.181,1.179L4.665,0.685L0.923,0.68l1.176,1.176C2.092,1.868,2.081,1.88,2.072,1.887
+                            c-2.763,2.762-2.763,7.243,0,10.005c2.767,2.765,7.245,2.765,10.011,0C14.844,9.13,14.847,4.649,12.083,1.887z" />
+                        </g>
+                    </svg>
+                    <span class="reset">Reset</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="whites-dashboard">
+        <div class="dashboard-container">
+            <div class="player-title" id="board-white">White</div>
+            <span class="time" id="white-time-display">00:00:00</span>
+        </div>
+    </div>
+    <div class="blacks-dashboard">
+        <div class="dashboard-container">
+            <div class="player-title" id="board-black">Black</div>
+            <span class="time" id="black-time-display">00:00:00</span>
+        </div>
+    </div>
+
+    <div class="welcome-note no-display" id="result-note">
+        <div class="welcome-title" id="results"></div>
+
+        <button class="btn-reset result-w-h" onclick="reset()">
+            <svg id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                y="0px" viewBox="0 0 14.155 14.155" xml:space="preserve">
+                <g>
+                    <path
+                        d="M12.083,1.887c-0.795-0.794-1.73-1.359-2.727-1.697v2.135c0.48,0.239,0.935,0.55,1.334,0.95
+                    c1.993,1.994,1.993,5.236,0,7.229c-1.993,1.99-5.233,1.99-7.229,0c-1.991-1.995-1.991-5.235,0-7.229
+                    C3.466,3.269,3.482,3.259,3.489,3.25h0.002l1.181,1.179L4.665,0.685L0.923,0.68l1.176,1.176C2.092,1.868,2.081,1.88,2.072,1.887
+                    c-2.763,2.762-2.763,7.243,0,10.005c2.767,2.765,7.245,2.765,10.011,0C14.844,9.13,14.847,4.649,12.083,1.887z" />
+                </g>
+            </svg>
+            <span class="reset">Play again</span>
+        </button>
+    </div>
+    <!-- Chess canvas 8x8 -->
+    <section class="canvas" id="chess-canvas">
+        <div id="a8" class="square"></div>
+        <div id="a7" class="square"></div>
+        <div id="a6" class="square"></div>
+        <div id="a5" class="square"></div>
+        <div id="a4" class="square"></div>
+        <div id="a3" class="square"></div>
+        <div id="a2" class="square"></div>
+        <div id="a1" class="square"></div>
+
+        <div class="no-display"></div>
+
+        <div id="b8" class="square"></div>
+        <div id="b7" class="square"></div>
+        <div id="b6" class="square"></div>
+        <div id="b5" class="square"></div>
+        <div id="b4" class="square"></div>
+        <div id="b3" class="square"></div>
+        <div id="b2" class="square"></div>
+        <div id="b1" class="square"></div>
+
+        <div class="no-display"></div>
+
+        <div id="c8" class="square"></div>
+        <div id="c7" class="square"></div>
+        <div id="c6" class="square"></div>
+        <div id="c5" class="square"></div>
+        <div id="c4" class="square"></div>
+        <div id="c3" class="square"></div>
+        <div id="c2" class="square"></div>
+        <div id="c1" class="square"></div>
+
+        <div class="no-display"></div>
+
+        <div id="d8" class="square"></div>
+        <div id="d7" class="square"></div>
+        <div id="d6" class="square"></div>
+        <div id="d5" class="square"></div>
+        <div id="d4" class="square"></div>
+        <div id="d3" class="square"></div>
+        <div id="d2" class="square"></div>
+        <div id="d1" class="square"></div>
+
+        <div class="no-display"></div>
+
+        <div id="e8" class="square"></div>
+        <div id="e7" class="square"></div>
+        <div id="e6" class="square"></div>
+        <div id="e5" class="square"></div>
+        <div id="e4" class="square"></div>
+        <div id="e3" class="square"></div>
+        <div id="e2" class="square"></div>
+        <div id="e1" class="square"></div>
+
+        <div class="no-display"></div>
+
+        <div id="f8" class="square"></div>
+        <div id="f7" class="square"></div>
+        <div id="f6" class="square"></div>
+        <div id="f5" class="square"></div>
+        <div id="f4" class="square"></div>
+        <div id="f3" class="square"></div>
+        <div id="f2" class="square"></div>
+        <div id="f1" class="square"></div>
+
+        <div class="no-display"></div>
+
+        <div id="g8" class="square"></div>
+        <div id="g7" class="square"></div>
+        <div id="g6" class="square"></div>
+        <div id="g5" class="square"></div>
+        <div id="g4" class="square"></div>
+        <div id="g3" class="square"></div>
+        <div id="g2" class="square"></div>
+        <div id="g1" class="square"></div>
+
+        <div class="no-display"></div>
+
+        <div id="h8" class="square"></div>
+        <div id="h7" class="square"></div>
+        <div id="h6" class="square"></div>
+        <div id="h5" class="square"></div>
+        <div id="h4" class="square"></div>
+        <div id="h3" class="square"></div>
+        <div id="h2" class="square"></div>
+        <div id="h1" class="square"></div>
+
+    </section>
+
+    <!-- Reset Modal -->
+
+    <div id="reset-modal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>Are you sure? You will loose all the progress.</p>
+
+            <button class="yes-btn" onclick="reset()">Yes</button>
+        </div>
+
+    </div>
+    <script src="./js/initSteps.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/modal.js"></script>
+</body>
+
+</html>
